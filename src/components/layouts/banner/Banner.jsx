@@ -51,7 +51,7 @@ const Banner = () => {
             <section className="h-44 sm:h-72 w-full rounded-sm shadow relative overflow-hidden">
                 <Slider {...settings}>
                     {banners.map((el, i) => (
-                        <img src={el} draggable="false" className="h-44 sm:h-72 w-full object-cover" alt={el} />
+                        <img src={el} key={i} draggable="false" className="h-44 sm:h-72 w-full object-cover" alt={el} />
                     ))}
                 </Slider>
             </section>

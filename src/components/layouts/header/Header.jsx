@@ -7,7 +7,7 @@ import Searchbar from './Searchbar';
 
 const Header = () => {
   return (
-    <header className="bg-purple-900 py-2 z-10 w-full px-4">
+    <header className="bg-purple-900 sticky top-0 py-2.5 z-10 w-full px-4">
       <div className="container w-full sm:w-9/15 mx-auto flex items-center justify-between">
         {/* Logo Section */}
         <div className="navbar-logo flex-shrink-0">
@@ -30,7 +30,7 @@ const Header = () => {
           {/* Links */}
           <Link
             className="bg-white text-purple-800 font-medium px-6 py-2 rounded-sm"
-            to="/"
+            to="/login"
           >
             Login
           </Link>

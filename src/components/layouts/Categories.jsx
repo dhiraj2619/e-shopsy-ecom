@@ -49,7 +49,7 @@ const Categories = () => {
     <section className="hidden sm:block bg-white mt-3 mb-4 min-w-full px-12 py-1 shadow overflow-hidden">
           <div className="flex items-center justify-between mt-2">
                {catNav.map((item,i)=>(
-                   <Link to="" className="flex flex-col gap-1 items-center p-2 group" >
+                   <Link to="" className="flex flex-col gap-1 items-center p-2 group" key={i}>
                         <div className="h-16 w-16">
                               <img src={item.icon} draggable="false" className="h-full w-full object-contain" alt={item.icon} />
                         </div>
