@@ -1,8 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField'
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearError, LoginUser } from '../../../actions/UserAction';
+import {useSnackbar} from 'notistack';
 
 const Login = () => {
+    const dispatch = useDispatch();
+
+    const { loading, error, isAuthenticated } = useSelector((state) => state.user);
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+        dispatch(LoginUser(email, password));
+    }
+    const location = useLocation();
+
+    const navigate= useNavigate();
+
+    const redirect = location.search ? location.search.split("=")[1] :"account";
+
+    const {enqueueSnackbar} = useSnackbar();
+
+
+    useEffect(()=>{
+        if(error){
+             enqueueSnackbar(error,{variant:'error'});
+             dispatch(clearError());
+        }
+        if(isAuthenticated){
+            navigate(`/${redirect}`);
+        }
+    },[dispatch,isAuthenticated,error,redirect,navigate,enqueueSnackbar])
+
     return (
         <>
             <main className="w-full mt-12 sm:pt-20 sm:mt-0">
@@ -12,10 +45,10 @@ const Login = () => {
                         <p className="text-gray-700 text-lg">Get access to your Orders, Wishlist and Recommendations</p>
                     </div>
 
-                    <form >
+                    <form onSubmit={handleLogin}>
                         <div className="flex flex-col w-full gap-4">
-                            <TextField fullWidth id="email" label="Email" type="email" required />
-                            <TextField fullWidth id="password" label="Password" type="password" required />
+                            <TextField fullWidth id="email" label="Email" type="email" value={email} onChange={(e)=>setEmail(e.target.value)} required />
+                            <TextField fullWidth id="password" label="Password" value={password} type="password" onChange={(e)=>setPassword(e.target.value)} required />
 
                             <div className="flex flex-col gap-2.5 mt-2 mb-32">
                                 <p className="text-xs text-primary-grey text-left">By continuing, you agree to Flipkart's <a href="https://www.flipkart.com/pages/terms" className="text-primary-blue"> Terms of Use</a> and <a href="https://www.flipkart.com/pages/privacypolicy" className="text-primary-blue"> Privacy Policy.</a></p>
