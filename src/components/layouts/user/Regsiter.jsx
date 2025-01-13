@@ -34,7 +34,7 @@ const Regsiter = () => {
             return;
         }
         if (password !== cpassword) {
-            enqueueSnackbar("password does'nt Match", { variant: "error" });
+            enqueueSnackbar("password doesn't Match", { variant: "error" });
             return;
         }
         if (!avatar) {
@@ -48,24 +48,18 @@ const Regsiter = () => {
         formData.set("email", email);
         formData.set("gender", gender);
         formData.set("password", password);
-        formData.set("avatar", avatar);
+        formData.append("avatar", avatar);
 
         dispatch(registerUser(formData));
     }
 
     const handleDataChange = (e) => {
         if (e.target.name === 'avatar') {
-            const reader = new FileReader();
+           
 
-
-            reader.onload = () => {
-                if (reader.readyState === 2) {
-                    setAvatarPreview(reader.result);
-                    setAvatar(reader.result);
-                }
-            };
-
-            reader.readAsDataURL(e.target.files[0]);
+            const file = e.target.files[0];
+            setAvatarPreview(URL.createObjectURL(file));  //preview the image
+            setAvatar(file); //keeps the actual file for upload
 
         } else {
             setUser({ ...user, [e.target.name]: e.target.value });
@@ -111,10 +105,21 @@ const Regsiter = () => {
                                     <TextField label="Confirm password" name="cpassword" value={cpassword} onChange={handleDataChange} id="password" type="password" required />
                                 </div>
 
-                                <div className="flex flex-col w-full justify-between sm:flex-row gap-3 items-center mt-3">
-                                    <Avatar src={avatarPreview} alt='Avatar Preview' sx={{ height: 56, width: 56 }} />
-                                    <label  className="rounded font-medium bg-gray-400 text-center cursor-pointer text-white w-full py-2 px-2.5 shadow hover:shadow-lg">
-                                        <input type="file" name="avatar" accept="image/*" className="hidden" onChange={handleDataChange} />Choose File
+                                <div className="flex flex-col w-full justify-between sm:flex-row gap-3 items-center">
+                                    <Avatar
+                                        alt="Avatar Preview"
+                                        src={avatarPreview}
+                                        sx={{ width: 56, height: 56 }}
+                                    />
+                                    <label className="rounded font-medium bg-gray-400 text-center cursor-pointer text-white w-full py-2 px-2.5 shadow hover:shadow-lg">
+                                        <input
+                                            type="file"
+                                            name="avatar"
+                                            accept="image/*"
+                                            onChange={handleDataChange}
+                                            className="hidden"
+                                        />
+                                        Choose File
                                     </label>
                                 </div>
                                 <button type="submit" className="text-white py-3 w-full bg-black rounded-md">Signup</button>
