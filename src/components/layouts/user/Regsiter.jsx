@@ -113,7 +113,7 @@ const Regsiter = () => {
 
                                 <div className="flex flex-col w-full justify-between sm:flex-row gap-3 items-center mt-3">
                                     <Avatar src={avatarPreview} alt='Avatar Preview' sx={{ height: 56, width: 56 }} />
-                                    <label htmlFor="" className="rounded font-medium bg-gray-400 text-center cursor-pointer text-white w-full py-2 px-2.5 shadow hover:shadow-lg">
+                                    <label  className="rounded font-medium bg-gray-400 text-center cursor-pointer text-white w-full py-2 px-2.5 shadow hover:shadow-lg">
                                         <input type="file" name="avatar" accept="image/*" className="hidden" />Choose File
                                     </label>
                                 </div>
