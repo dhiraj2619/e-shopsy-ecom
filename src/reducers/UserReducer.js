@@ -1,4 +1,4 @@
-import { CLEAR_ERRORS, LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, REGISTER_USER_REQUEST, REGISTER_USER_SUCCESS } from "../constants/UserConstant";
+import { CLEAR_ERRORS, LOGIN_USER_FAIL, LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, REGISTER_USER_FAIL, REGISTER_USER_REQUEST, REGISTER_USER_SUCCESS } from "../constants/UserConstant";
 
 export const userReducer = (state = { user: [] }, { type, payload }) => {
 
@@ -17,6 +17,14 @@ export const userReducer = (state = { user: [] }, { type, payload }) => {
                 loading: false,
                 isAuthenticated: true,
                 user: payload
+            }
+        case LOGIN_USER_FAIL:
+        case REGISTER_USER_FAIL:
+            return {
+                loading: false,
+                isAuthenticated: false,
+                user: null,
+                error:payload
             }
 
         case CLEAR_ERRORS:
