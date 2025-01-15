@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CLEAR_ERRORS, LOGIN_USER_FAIL, LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, REGISTER_USER_FAIL, REGISTER_USER_REQUEST, REGISTER_USER_SUCCESS } from "../constants/UserConstant"
+import { CLEAR_ERRORS, LOGIN_USER_FAIL, LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, LOGOUT_USER_FAIL, LOGOUT_USER_SUCCESS, REGISTER_USER_FAIL, REGISTER_USER_REQUEST, REGISTER_USER_SUCCESS } from "../constants/UserConstant"
 
 export const LoginUser = (email, password) => async (dispatch) => {
     try {
@@ -22,6 +22,20 @@ export const LoginUser = (email, password) => async (dispatch) => {
                 type: LOGIN_USER_FAIL,
                 payload: error.response.data.message
             })
+    }
+}
+
+export const logoutUser=()=>async(dispatch)=>{
+    try {
+         await axios.get('https://shopsy-server.onrender.com/api/v1/logout');
+         dispatch({
+             type:LOGOUT_USER_SUCCESS
+         })
+    } catch (error) {
+         dispatch({
+             type:LOGOUT_USER_FAIL,
+             payload:error.response.data.message
+         })
     }
 }
 

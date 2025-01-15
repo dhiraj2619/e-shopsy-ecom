@@ -1,16 +1,32 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import OfflineBoltIcon from '@mui/icons-material/OfflineBoltIcon';
-import AddCircleIcon from '@mui/icons-material/AddCircleIcon';
-import ShoppingBagIcon from '@mui/icons-material/ShoppingBagIcon';
-import FavoriteIcon from '@mui/icons-material/FavoriteIcon';
-import ChatIcon from '@mui/icons-material/ChatIcon';
-import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumberIcon';
-import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWalletIcon';
-import NotificationsIcon from '@mui/icons-material/NotificationsIcon';
+import OfflineBoltIcon from '@mui/icons-material/OfflineBolt';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ChatIcon from '@mui/icons-material/Chat';
+import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
+import { useDispatch } from 'react-redux';
+import { logoutUser } from '../../../actions/UserAction';
+import {enqueueSnackbar} from 'notistack';
 
-const PrimaryDropdown = () => {
+
+const PrimaryDropdown = ({setTogglePrimarydropdown,user}) => {
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handleLogout=()=>{
+        dispatch(logoutUser());
+        navigate('/login');
+        enqueueSnackbar("Logout Successfully",{variant:"success"});
+        setTogglePrimarydropdown(false);
+    }
+
 
     const navs = [
         {
@@ -57,7 +73,7 @@ const PrimaryDropdown = () => {
 
 
     return (
-        <div className="absolute w-60 -left-24 ml-2 top-9 bg-white shadow-2xl rounded flex-col text-sm">
+        <div className="absolute w-60 -left-32 ml-2 top-9 bg-white shadow-2xl rounded flex-col text-sm">
             <Link className="pl-3 py-3.5 border-b flex gap-3 items-center hover:bg-gray-50 rounded-t" to="/account">
                 <span className="text-purple-900"><AccountCircleIcon /></span>My profile
             </Link>
@@ -82,10 +98,19 @@ const PrimaryDropdown = () => {
                                     {title}
                                 </Link>
                             )}
+                            
                         </>
                     )
                 })
             }
+            <div className="pl-3 py-3.5 flex gap-3 items-center hover:bg-gray-50 rounded-b cursor-pointer" onClick={handleLogout} >
+                <span className="text-primary-blue"><PowerSettingsNewIcon sx={{ fontSize: "18px" }} /></span>
+                Logout
+            </div>
+
+            <div className="absolute right-1/2 -top-2.5">
+                <div className="arrow_down"></div>
+            </div>
         </div>
     )
 }
