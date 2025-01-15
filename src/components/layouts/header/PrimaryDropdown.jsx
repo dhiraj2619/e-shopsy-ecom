@@ -5,6 +5,7 @@ import OfflineBoltIcon from '@mui/icons-material/OfflineBolt';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import ChatIcon from '@mui/icons-material/Chat';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
@@ -74,6 +75,9 @@ const PrimaryDropdown = ({setTogglePrimarydropdown,user}) => {
 
     return (
         <div className="absolute w-60 -left-32 ml-2 top-9 bg-white shadow-2xl rounded flex-col text-sm">
+            {user.role === 'admin' && <Link className="pl-3 py-3.5 border-b flex gap-3 items-center" to="/admin/dashboard">
+                <span className="text-purple-900"><DashboardIcon /></span>Admin dashbaord
+            </Link>}
             <Link className="pl-3 py-3.5 border-b flex gap-3 items-center hover:bg-gray-50 rounded-t" to="/account">
                 <span className="text-purple-900"><AccountCircleIcon /></span>My profile
             </Link>

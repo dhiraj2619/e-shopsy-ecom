@@ -1,10 +1,14 @@
 import React from 'react'
 import Sidebar from './Sidebar/Sidebar'
+import { useSelector } from 'react-redux'
 
 const Dashboard = () => {
+
+  const {user} = useSelector((state)=>state.user);
+
   return (
     <main className="flex min-h-screen">
-        <Sidebar/>
+        <Sidebar user={user}/>
     </main>
   )
 }
