@@ -1,14 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Sidebar from './Sidebar/Sidebar'
-import { useSelector } from 'react-redux'
 
-const Dashboard = () => {
 
-  const {user} = useSelector((state)=>state.user);
+const Dashboard = ({activeTab}) => {
 
+  
+ const [onMobile, setOnMobile] = useState(false);
+ const [toggleSidebar, setToggleSidebar] = useState(false);
+
+ useEffect(()=>{
+     if(window.innerWidth < 600){
+       setOnMobile(true);
+     }
+ },[])
   return (
     <main className="flex min-h-screen">
-        <Sidebar user={user}/>
+        {!onMobile && <Sidebar activeTab={activeTab}/>}
+        {toggleSidebar && <Sidebar activeTab={activeTab} setToggleSidebar={setToggleSidebar}/>}
+
+        <div className="min-h-screen min-w-full"></div>
     </main>
   )
 }
