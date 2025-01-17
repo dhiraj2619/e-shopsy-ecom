@@ -63,6 +63,14 @@ export const registerUser=(userData)=>async(dispatch)=>{
    }
 }
 
+export const getUserDeatils=()=>async(dispatch)=>{
+  try {
+      
+  } catch (error) {
+    
+  }
+}
+
 export const clearErrors = () => async (dispatch) => {
     dispatch({ type: CLEAR_ERRORS});
 }

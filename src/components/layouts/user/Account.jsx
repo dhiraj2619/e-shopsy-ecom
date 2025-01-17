@@ -1,16 +1,35 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Sidebar from "../../../pages/Admin/Sidebar/Sidebar";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+import { useSelector } from "react-redux";
+import Loader from "../Loader";
 
 const Account = () => {
+
+  const {isAuthenticated,user,loading} = useSelector(state=>state.user);
+  const navigate = useNavigate();
+  
+
+  useEffect(()=>{
+       if(isAuthenticated === false){
+           navigate("/login");
+       }
+  },[isAuthenticated,navigate]);
+
+
+  const getLastName=()=>{
+      const nameArray = user.name.split(" ");
+      return nameArray[nameArray.length - 1];
+  }
+
   return (
     <>
-    
-      <>
+     {loading ? <Loader /> : 
+        <>
         <main className="w-full mt-12 sm:mt-0">
           {/* <!-- row --> */}
           <div className="flex gap-3.5 sm:w-11/12 sm:mt-4 m-auto mb-7">
-            <Sidebar />
+           
 
             <div className="flex-1 overflow-hidden shadow bg-white">
               <div className="flex flex-col gap-12 m-4 sm:mx-8 sm:my-6">
@@ -35,7 +54,7 @@ const Account = () => {
                       </label>
                       <input
                         type="text"
-                        value=""
+                        value={user.name.split(" ",1)}
                         className="text-sm outline-none border-none cursor-not-allowed text-gray-500"
                         disabled
                       />
@@ -44,7 +63,7 @@ const Account = () => {
                       <label className="text-xs text-gray-500">Last Name</label>
                       <input
                         type="text"
-                        value=""
+                        value={getLastName()}
                         className="text-sm outline-none border-none cursor-not-allowed text-gray-500"
                         disabled
                       />
@@ -59,7 +78,7 @@ const Account = () => {
                         <input
                           type="radio"
                           name="gender"
-                          checked=""
+                          checked={user.gender === "male"}
                           id="male"
                           className="h-4 w-4 cursor-not-allowed"
                           disabled
@@ -72,7 +91,7 @@ const Account = () => {
                         <input
                           type="radio"
                           name="gender"
-                          checked=""
+                          checked={user.gender === "female"}
                           id="female"
                           className="h-4 w-4 cursor-not-allowed"
                           disabled
@@ -109,7 +128,7 @@ const Account = () => {
                       </label>
                       <input
                         type="email"
-                        value=""
+                        value={user.email}
                         className="text-sm outline-none border-none cursor-not-allowed text-gray-500"
                         disabled
                       />
@@ -205,6 +224,8 @@ const Account = () => {
           </div>
         </main>
       </>
+     }
+     
     </>
   );
 };
