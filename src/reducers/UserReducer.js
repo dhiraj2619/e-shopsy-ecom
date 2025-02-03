@@ -14,6 +14,7 @@ import {
   UPDATE_PROFILE_SUCCESS,
   UPDATE_USER_FAIL,
   UPDATE_USER_REQUEST,
+  UPDATE_USER_SUCCESS,
 } from "../constants/UserConstant";
 
 const initialState={
@@ -83,9 +84,10 @@ export const profileReducer = (state = profileInitialState, { type, payload }) =
     case UPDATE_USER_REQUEST:
       return {
         ...state,
-        loading: true,
+        isUpdated: null,
       };
     case UPDATE_PROFILE_SUCCESS:
+    case UPDATE_USER_SUCCESS:
       return {
         ...state,
         loading: false,

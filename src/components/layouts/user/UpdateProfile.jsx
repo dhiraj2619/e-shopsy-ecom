@@ -12,7 +12,7 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   clearErrors,
   loadUser,
-  updateProfile,
+  updateUserProfile,
 } from "../../../actions/UserAction";
 import BackdropLoader from "../BackdropLoader";
 
@@ -43,7 +43,7 @@ const UpdateProfile = () => {
       const file = e.target.files[0];
       if (file) {
         setAvatarPreview(URL.createObjectURL(file));
-        setAvatar(file);
+        setAvatar(file);  
       }
     } else {
       setProfileData({ ...profileData, [e.target.name]: e.target.value });
@@ -69,8 +69,9 @@ const UpdateProfile = () => {
   
     console.log([...formData]); // Debugging: Check if the image is being added
   
-    dispatch(updateProfile(formData));
+    dispatch(updateUserProfile(formData));
   };
+  
   
 
   useEffect(() => {
@@ -83,7 +84,8 @@ const UpdateProfile = () => {
       dispatch(loadUser());
       navigate("/account");
     }
-  }, [dispatch, error, isUpdated, navigate]);
+  }, [dispatch, error, isUpdated, navigate, user]);
+  
 
   return (
     <main className="w-full mt-12 sm:pt-20 sm:mt-0">

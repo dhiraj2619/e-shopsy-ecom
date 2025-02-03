@@ -106,7 +106,7 @@ export const loadUser = () => async (dispatch) => {
   }
 };
 
-export const updateProfile = (userData) => async (dispatch) => {
+export const updateUserProfile = (userData) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_PROFILE_REQUEST });
 
