@@ -22,6 +22,12 @@ const initialState={
      loading:false
 }
 
+const profileInitialState={
+   error:false,
+   isUpdated:null,
+   loading:false
+}
+
 export const userReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case LOGIN_USER_REQUEST:
@@ -71,7 +77,7 @@ export const userReducer = (state = initialState, { type, payload }) => {
   }
 };
 
-export const profileReducer = (state = { user: {} }, { type, payload }) => {
+export const profileReducer = (state = profileInitialState, { type, payload }) => {
   switch (type) {
     case UPDATE_PROFILE_REQUEST:
     case UPDATE_USER_REQUEST:
