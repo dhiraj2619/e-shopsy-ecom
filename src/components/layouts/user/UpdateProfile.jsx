@@ -35,7 +35,7 @@ const UpdateProfile = () => {
 
   const [avatar, setAvatar] = useState(user?.avatar?.url || "");
   const [avatarPreview, setAvatarPreview] = useState(
-    user?.avatar || "preview.png"
+    user?.avatar?.url || "preview.png"
   );
 
   const handleOnChange = (e) => {
@@ -52,23 +52,26 @@ const UpdateProfile = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-
+  
     if (!name || !email || !gender) {
-      enqueueSnackbar("fields cannot be empty", { variant: "warning" });
+      enqueueSnackbar("Fields cannot be empty", { variant: "warning" });
       return;
     }
-
+  
     const formData = new FormData();
-
     formData.set("name", name);
     formData.set("email", email);
     formData.set("gender", gender);
+    
     if (avatar) {
       formData.append("avatar", avatar);
     }
-
+  
+    console.log([...formData]); // Debugging: Check if the image is being added
+  
     dispatch(updateProfile(formData));
   };
+  
 
   useEffect(() => {
     if (error) {
