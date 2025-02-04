@@ -32,6 +32,8 @@ export const LoginUser = (email, password) => async (dispatch) => {
       config
     );
 
+    localStorage.setItem("token",data.token);
+
     dispatch({
       type: LOGIN_USER_SUCCESS,
       payload: data.user,
@@ -47,6 +49,8 @@ export const LoginUser = (email, password) => async (dispatch) => {
 export const logoutUser = () => async (dispatch) => {
   try {
     await axios.get("https://shopsy-server.onrender.com/api/v1/logout");
+
+    localStorage.removeItem("token")
     dispatch({
       type: LOGOUT_USER_SUCCESS,
     });
@@ -90,8 +94,17 @@ export const loadUser = () => async (dispatch) => {
   try {
     dispatch({ type: LOAD_USER_REQUEST });
 
+    const token = localStorage.getItem("token");
+
+    const config ={
+      headers:{
+        "Content-Type":"application/json",
+        Authorization:`Bearer ${token}`
+      }
+    }
     const { data } = await axios.get(
-      "https://shopsy-server.onrender.com/api/v1/me"
+      "https://shopsy-server.onrender.com/api/v1/me",
+      config
     );
 
     dispatch({
@@ -110,9 +123,12 @@ export const updateUserProfile = (userData) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_PROFILE_REQUEST });
 
+    const token = localStorage.getItem("token");
+
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
+        Authorization:`Bearer ${token}`
       },
     };
 
@@ -121,6 +137,9 @@ export const updateUserProfile = (userData) => async (dispatch) => {
       userData,
       config
     );
+
+    console.log("Authorization Header:", config.headers.Authorization);
+
 
     dispatch({ type: UPDATE_PROFILE_SUCCESS, payload: data.user });
   } catch (error) {

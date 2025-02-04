@@ -18,7 +18,7 @@ import BackdropLoader from "../BackdropLoader";
 
 const UpdateProfile = () => {
   const { user } = useSelector((state) => state.user);
-  console.log(user);
+  
   
   const { error, loading, isUpdated } = useSelector((state) => state.profile);
 
@@ -58,6 +58,10 @@ const UpdateProfile = () => {
       return;
     }
   
+    // Log token for debugging
+    console.log("Token:", localStorage.getItem("token"));
+    
+  
     const formData = new FormData();
     formData.set("name", name);
     formData.set("email", email);
@@ -67,10 +71,9 @@ const UpdateProfile = () => {
       formData.append("avatar", avatar);
     }
   
-    console.log([...formData]); // Debugging: Check if the image is being added
-  
-    dispatch(updateUserProfile(formData));
+    dispatch(updateUserProfile(formData));  
   };
+  
   
   
 
