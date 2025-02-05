@@ -96,6 +96,12 @@ export const loadUser = () => async (dispatch) => {
 
     const token = localStorage.getItem("token");
 
+    if(!token){
+      console.log("No token found in localStorage");
+      dispatch({ type: LOAD_USER_FAIL, payload: "No token found" });
+      return;
+    }
+
     const config ={
       headers:{
         "Content-Type":"application/json",
@@ -107,9 +113,12 @@ export const loadUser = () => async (dispatch) => {
       config
     );
 
+    console.log("API response",data.data);
+    
+
     dispatch({
       type: LOAD_USER_SUCCESS,
-      payload: data.user,
+      payload: data.data,
     });
   } catch (error) {
     dispatch({
