@@ -10,6 +10,8 @@ import ProtectedRoute from "./Route/ProtectedRoute";
 import UpdateProfile from "./components/layouts/user/UpdateProfile";
 import { useDispatch } from "react-redux";
 import { loadUser } from "./actions/UserAction";
+import ProductDetails from "./components/layouts/Productdetails/Productdetails";
+import Productdetails from "./components/layouts/Productdetails/Productdetails";
 
 const App = () => {
 
@@ -39,6 +41,7 @@ const App = () => {
                  <UpdateProfile/>
              </ProtectedRoute>
           }></Route>
+          <Route path="/product/:id" element={<Productdetails/>}/>
         </Routes>
       </main>
     </>

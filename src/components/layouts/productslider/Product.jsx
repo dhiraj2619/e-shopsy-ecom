@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom'
 import { getDiscount } from '../../../utils/function';
 
 const Product = (props) => {
-  const{name,images,price,cuttedPrice} = props;
+  const{_id,name,images,price,cuttedPrice} = props;
   return (
     <div className="flex flex-col gap-2 px-2 py-6 relative">
-      <Link className="flex flex-col items-center text-center group">
+      <Link className="flex flex-col items-center text-center group" to={`/products/${_id}`}>
         <div className="h-36 w-36">
           <img draggable="false" src={images[0].url} className="h-full w-full object-contain" alt={name} />
         </div>

@@ -16,29 +16,29 @@ const Header = () => {
   console.log(isAuthenticated);
 
   return (
-    <header className="bg-purple-900 sticky top-0 py-2.5 z-10 w-full px-4">
-      <div className="container w-full sm:w-9/15 mx-auto flex items-center justify-between">
-        {/* Logo Section */}
-        <Link to="/">
-          <div className="navbar-logo flex-shrink-0">
-            <img
-              src={logo}
-              draggable="false"
-              className="object-contain h-8"
-              alt="Logo"
-            />
-          </div>
-        </Link>
+    <header className="bg-purple-900 fixed top-0 py-2.5 z-10 w-full px-4">
+      <div className="w-full sm:w-9/12 px-1 sm:px-4 m-auto flex justify-between items-center relative">
+        <div className="flex items-center flex-1">
+          <Link to="/">
+            <div className="navbar-logo flex-shrink-0">
+              <img
+                src={logo}
+                draggable="false"
+                className="object-contain h-8"
+                alt="Logo"
+              />
+            </div>
+          </Link>
+          <Searchbar />
+        </div>
 
         {/* Spacer for center alignment */}
         <div className="flex-1"></div>
 
         {/* Right Section */}
         <div className="flex items-center justify-between gap-4 sm:gap-7">
-          <Searchbar />
-
           {/* Links */}
-          <div className="flex items-center justify-between relative">
+          <div className="flex items-center justify-between ml-1 sm:ml-0 gap-0.5 sm:gap-7 relative">
             {isAuthenticated === false ? (
               <Link
                 to="/login"
